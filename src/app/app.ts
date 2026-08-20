@@ -1,12 +1,20 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { Navbar } from './navbar/navbar';
+import { ProductList } from './product-list/product-list';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [Navbar, ProductList],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('EasyGO');
+  cartCount = 0;
+
+  onAddToCart(productName: string) {
+    this.cartCount++;
+    console.log('Added:', productName);
+  }
+
 }
