@@ -11,11 +11,17 @@ export class ProductCard {
   @Input() productName: string = '';
   @Input() price: number = 0;
   @Input() imageUrl: string = '';
+  @Input() inStock: boolean = true;
 
-  @Output() addToCart = new EventEmitter<string>();
 
-onAddToCart() {
-  console.log('ProductCard clicked:', this.productName);
-  this.addToCart.emit(this.productName);
+
+  @Output() addToCart =
+  new EventEmitter<{ name: string; qty: number }>();
+
+onAddToCart(qty: string) {
+  this.addToCart.emit({
+    name: this.productName,
+    qty: Number(qty) || 1
+  });
 }
 }

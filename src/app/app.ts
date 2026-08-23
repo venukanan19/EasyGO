@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Navbar } from './navbar/navbar';
 import { ProductList } from './product-list/product-list';
 
@@ -12,9 +12,15 @@ import { ProductList } from './product-list/product-list';
 export class App {
   cartCount = 0;
 
-  onAddToCart(productName: string) {
-    this.cartCount++;
-    console.log('Added:', productName);
+  protected readonly searchTerm = signal('');
+
+onAddToCart(item: { name: string; qty: number }) {
+  this.cartCount += item.qty;
+  console.log(`${item.qty} x ${item.name} added`);
+}
+
+  onSearchChange(term: string) {
+  this.searchTerm.set(term);
   }
 
 }

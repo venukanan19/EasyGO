@@ -1,9 +1,33 @@
 <div class="card">
-<img [src]="imageUrl" [alt]="productName">
-<h3>{{ productName }}</h3>
-<p>$ {{ price }}</p>
-<button
-  (click)="onAddToCart()">
-  Add to cart
-</button>
+
+  <img [src]="imageUrl" [alt]="productName">
+
+  <h3>{{ productName.toUpperCase() }}</h3>
+
+  <p>${{ price.toFixed(2) }}</p>
+
+  <p>Total incl. delivery: $ {{ price + 50 }}</p>
+
+  @if (inStock) {
+
+    <div>
+      <input
+        #qtyInput
+        type="number"
+        value="1"
+        min="1"
+        max="10">
+
+      <button
+        (click)="onAddToCart(qtyInput.value)">
+        Add to cart
+      </button>
+    </div>
+
+  } @else {
+
+    <p>Out of Stock</p>
+
+  }
+
 </div>

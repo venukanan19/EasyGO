@@ -14,9 +14,22 @@
     <div class="nav-actions">
 
       <div class="search-box">
-        <input type="text" placeholder="Search products">
-        <span>⌕</span>
-      </div>
+  <input
+    type="text"
+    placeholder="Search products"
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="onSearchChange()">
+
+  @if (searchTerm) {
+    <button
+      (click)="clearSearch()"
+      aria-label="Clear search">
+      &#10005;
+    </button>
+  } @else {
+    <span>⌕</span>
+  }
+</div>
 
       <div class="cart">
         🛒

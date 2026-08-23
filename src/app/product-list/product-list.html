@@ -2,19 +2,31 @@
 
   <h2>Our Products</h2>
 
+  <p class="result-count">
+  Showing {{ filteredProducts.length }} of {{ products.length }} products
+</p>
+
+  @if (filteredProducts.length > 0) {
   <div class="product-grid">
 
-    @for (product of products; track product.id) {
+    @for (product of filteredProducts; track product.id) {
 
       <app-product-card
         [productName]="product.name"
         [price]="product.price"
         [imageUrl]="product.imageUrl"
+        [inStock]="product.inStock"
         (addToCart)="handleAddToCart($event)">
       </app-product-card>
 
     }
 
   </div>
+  } @else {
+  <div class="no-results">
+    <p>No products match "{{ searchTerm }}"</p>
+    <p>Try a different name, like "Galaxy" or "iPhone".</p>
+  </div>
+}
 
 </section>
