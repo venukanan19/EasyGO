@@ -1,12 +1,40 @@
-<div class="card">
+<div appHighlight class="card"  [ngStyle]="{ opacity: inStock ? 1 : 0.65 }">
 
   <img [src]="imageUrl" [alt]="productName">
 
-  <h3>{{ productName.toUpperCase() }}</h3>
+<h3>{{ productName | uppercase }}</h3>
 
-  <p>${{ price.toFixed(2) }}</p>
+<p
+  class="stock-badge"
+  [ngClass]="{
+    'available': inStock,
+    'out-of-stock': !inStock
+  }">
+  {{ (inStock ? 'In Stock' : 'Out of Stock') | uppercase }}
+</p>
 
-  <p>Total incl. delivery: $ {{ price + 50 }}</p>
+<p>
+  {{ priceInLkr | currency:'LKR':'Rs. ':'1.0-0' }}
+</p>
+
+<p>
+  Total incl. delivery: Rs. {{ totalInLkr | number:'1.0-0' }}
+</p>
+
+<p class="description">
+  @if (showFullDescription) {
+    {{ description }}
+  } @else {
+    {{ description | shortText:20 }}
+  }
+</p>
+
+@if (description.length > 20) {
+  <button
+    (click)="toggleDescription()">
+    {{ showFullDescription ? 'View less' : 'View more' }}
+  </button>
+}
 
   @if (inStock) {
 
@@ -23,10 +51,6 @@
         Add to cart
       </button>
     </div>
-
-  } @else {
-
-    <p>Out of Stock</p>
 
   }
 

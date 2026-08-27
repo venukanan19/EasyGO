@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter,Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ProductService } from '../services/product-service';
+
 
 @Component({
   imports: [FormsModule],
@@ -10,7 +12,12 @@ import { FormsModule } from '@angular/forms';
 export class Navbar {
   appName = 'EasyGO';
   currentYear = new Date().getFullYear(); 
-  @Input() cartCount: number = 0;
+
+  constructor(private productService: ProductService) {}
+
+  get cartCount(): number {
+  return this.productService.getCart().length;
+  }
 
   searchTerm: string = '';
 

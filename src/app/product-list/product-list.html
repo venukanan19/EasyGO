@@ -2,11 +2,13 @@
 
   <h2>Our Products</h2>
 
-  <p class="result-count">
+<p class="result-count">
   Showing {{ filteredProducts.length }} of {{ products.length }} products
+  <span class="text-gray-400">
+    · Prices updated {{ today | date:'mediumDate' }}
+  </span>
 </p>
 
-  @if (filteredProducts.length > 0) {
   <div class="product-grid">
 
     @for (product of filteredProducts; track product.id) {
@@ -16,17 +18,18 @@
         [price]="product.price"
         [imageUrl]="product.imageUrl"
         [inStock]="product.inStock"
-        (addToCart)="handleAddToCart($event)">
+        [description]="product.description">
       </app-product-card>
+
+    } @empty {
+
+      <div class="no-results">
+        <p>No products match "{{ searchTerm }}"</p>
+        <p>Try a different name, like "Galaxy" or "iPhone".</p>
+      </div>
 
     }
 
   </div>
-  } @else {
-  <div class="no-results">
-    <p>No products match "{{ searchTerm }}"</p>
-    <p>Try a different name, like "Galaxy" or "iPhone".</p>
-  </div>
-}
 
 </section>

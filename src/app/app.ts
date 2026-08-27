@@ -10,14 +10,8 @@ import { ProductList } from './product-list/product-list';
   styleUrl: './app.css'
 })
 export class App {
-  cartCount = 0;
 
   protected readonly searchTerm = signal('');
-
-onAddToCart(item: { name: string; qty: number }) {
-  this.cartCount += item.qty;
-  console.log(`${item.qty} x ${item.name} added`);
-}
 
   onSearchChange(term: string) {
   this.searchTerm.set(term);
