@@ -113,3 +113,58 @@
 .login-btn:hover {
   opacity: 0.9;
 }
+
+.link-active {
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+
+  .nav-container {
+    height: auto;
+    min-height: 70px;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .brand {
+    flex: 0 0 auto;
+  }
+
+  .brand img {
+    width: 75px;
+    height: 36px;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+  }
+
+  .nav-actions {
+    margin-left: auto;
+    gap: 10px;
+  }
+
+  .search-box {
+    width: 140px;
+    height: 34px;
+  }
+
+  .login-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .cart {
+    font-size: 17px;
+  }
+}

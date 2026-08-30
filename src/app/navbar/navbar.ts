@@ -1,34 +1,36 @@
-import { Component, EventEmitter,Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../services/product-service';
-
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink, RouterLinkActive],
   selector: 'app-navbar',
   styleUrl: './navbar.css',
   templateUrl: './navbar.html',
 })
 export class Navbar {
   appName = 'EasyGO';
-  currentYear = new Date().getFullYear(); 
-
-  constructor(private productService: ProductService) {}
-
-  get cartCount(): number {
-  return this.productService.getCart().length;
-  }
+  currentYear = new Date().getFullYear();
 
   searchTerm: string = '';
 
-  @Output() searchChange = new EventEmitter<string>();
+constructor(
+  private productService: ProductService,
+  private router: Router
+) {}
 
-  onSearchChange() {
-    this.searchChange.emit(this.searchTerm);
+  get cartCount(): number {
+    return this.productService.getCart().length;
   }
 
-  clearSearch() {
-  this.searchTerm = '';
-  this.searchChange.emit('');
+onSearchChange() {
+  this.productService.setSearchTerm(this.searchTerm);
+  this.router.navigate(['/products']);
 }
+
+  clearSearch() {
+    this.searchTerm = '';
+    this.productService.setSearchTerm('');
+  }
 }

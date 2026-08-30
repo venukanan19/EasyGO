@@ -1,20 +1,26 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { Navbar } from './navbar/navbar';
-import { ProductList } from './product-list/product-list';
-
+import { NavigationEnd, NavigationStart, Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [Navbar, ProductList],
+  imports: [Navbar, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
+  constructor(private router: Router) {
+  this.router.events.subscribe(event => {
 
-  protected readonly searchTerm = signal('');
+    if (event instanceof NavigationStart) {
+      console.log('Navigation started:', event.url);
+    }
 
-  onSearchChange(term: string) {
-  this.searchTerm.set(term);
-  }
+    if (event instanceof NavigationEnd) {
+      console.log('Navigation ended:', event.urlAfterRedirects);
+    }
+
+  });
+}
 
 }

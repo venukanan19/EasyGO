@@ -1,0 +1,49 @@
+<section class="px-6 py-10 max-w-3xl mx-auto">
+
+  <h2 class="text-3xl font-semibold mb-6">
+    Your Cart
+  </h2>
+
+  @if (cartItems.length > 0) {
+
+    <ul class="space-y-3">
+
+      @for (item of cartItems; track item.name) {
+
+        <li class="border p-3 rounded flex justify-between items-center">
+
+          <span>{{ item.name }}</span>
+
+          <div class="flex items-center gap-4">
+
+            <span>Qty: {{ item.quantity }}</span>
+
+            <button
+              (click)="removeItem(item.name)"
+              class="px-3 py-1 bg-red-500 text-white rounded">
+              Remove
+            </button>
+
+          </div>
+
+        </li>
+
+      }
+
+    </ul>
+
+    <button
+      (click)="clearCart()"
+      class="mt-6 px-6 py-2 bg-red-500 text-white rounded">
+      Clear Cart
+    </button>
+
+  } @else {
+
+    <p class="text-gray-500">
+      Your cart is empty.
+    </p>
+
+  }
+
+</section>

@@ -6,9 +6,29 @@
     </div>
 
     <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
+<a
+  routerLink="/home"
+  routerLinkActive="link-active">
+  Home
+</a>
+
+<a
+  routerLink="/products"
+  routerLinkActive="link-active">
+  Products
+</a>
+
+<a
+  routerLink="/about"
+  routerLinkActive="link-active">
+  About
+</a>
+
+<a
+  routerLink="/login"
+  routerLinkActive="link-active">
+  Login
+</a>
     </div>
 
     <div class="nav-actions">
@@ -31,16 +51,23 @@
   }
 </div>
 
-      <div class="cart">
-        🛒
-        @if (cartCount > 0) {
-          <span class="cart-count">{{ cartCount }}</span>
-        }
-      </div>
+      <div
+  class="cart"
+  routerLink="/cart">
+  
+  🛒
 
-      <button class="login-btn">
-        Login
-      </button>
+  @if (cartCount > 0) {
+    <span class="cart-count">{{ cartCount }}</span>
+  }
+
+</div>
+
+<button
+  class="login-btn"
+  routerLink="/login">
+  Login
+</button>
 
     </div>
 

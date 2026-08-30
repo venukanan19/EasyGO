@@ -1,6 +1,8 @@
 <div appHighlight class="card"  [ngStyle]="{ opacity: inStock ? 1 : 0.65 }">
 
+  <a [routerLink]="['/products', productId]">
   <img [src]="imageUrl" [alt]="productName">
+  </a>
 
 <h3>{{ productName | uppercase }}</h3>
 

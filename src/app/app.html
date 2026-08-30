@@ -1,7 +1,3 @@
-<app-navbar
-  (searchChange)="onSearchChange($event)">
-</app-navbar>
+<app-navbar />
 
-<app-product-list
-  [searchTerm]="searchTerm()">
-</app-product-list>
+<router-outlet />

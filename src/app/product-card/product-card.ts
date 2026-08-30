@@ -3,9 +3,10 @@ import { Component, Input} from '@angular/core';
 import { Highlight } from '../directives/highlight';
 import { ShortTextPipe } from '../pipes/short-text-pipe';
 import { ProductService } from '../services/product-service';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [NgClass, NgStyle, Highlight, UpperCasePipe, CurrencyPipe, DecimalPipe, ShortTextPipe],
+  imports: [NgClass, NgStyle, Highlight, UpperCasePipe, CurrencyPipe, DecimalPipe, ShortTextPipe, RouterLink],
   selector: 'app-product-card',
   styleUrl: './product-card.css',
   templateUrl: './product-card.html',
@@ -13,6 +14,7 @@ import { ProductService } from '../services/product-service';
 export class ProductCard {
 
   @Input() productName: string = '';
+  @Input() productId: number = 0;
   @Input() price: number = 0;
   @Input() imageUrl: string = '';
   @Input() inStock: boolean = true;
