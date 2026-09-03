@@ -1,0 +1,267 @@
+<section class="max-w-xl mx-auto py-10">
+
+  <h2 class="text-3xl font-semibold mb-6">
+    Checkout
+  </h2>
+
+  <form
+    [formGroup]="checkoutForm"
+    (ngSubmit)="placeOrder()"
+    class="space-y-6">
+
+    <!-- Customer Details -->
+    <div formGroupName="customer" class="space-y-4">
+
+      <h3 class="text-xl font-semibold">
+        Customer Details
+      </h3>
+
+      <!-- Name -->
+      <input
+        type="text"
+        formControlName="name"
+        placeholder="Name"
+        class="w-full border rounded px-3 py-2"
+      />
+
+      @if (
+        customer.get('name')?.invalid &&
+        (customer.get('name')?.touched || submitted())
+      ) {
+        <small class="text-red-500">
+          Name is required and must be at least 3 characters.
+        </small>
+      }
+
+
+      <!-- Email -->
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email"
+        class="w-full border rounded px-3 py-2"
+      />
+
+      @if (
+        customer.get('email')?.invalid &&
+        (customer.get('email')?.touched || submitted())
+      ) {
+        <small class="text-red-500">
+          Enter a valid email address.
+        </small>
+      }
+
+
+      <!-- Confirm Email -->
+      <input
+        type="email"
+        formControlName="confirmEmail"
+        placeholder="Confirm Email"
+        class="w-full border rounded px-3 py-2"
+      />
+
+      @if (
+        customer.hasError('emailsMismatch') &&
+        (customer.get('confirmEmail')?.touched || submitted())
+      ) {
+        <small class="text-red-500">
+          Email addresses must match.
+        </small>
+      }
+
+
+      <!-- Phone -->
+      <input
+        type="text"
+        formControlName="phone"
+        placeholder="Phone"
+        class="w-full border rounded px-3 py-2"
+      />
+
+      @if (
+        customer.get('phone')?.invalid &&
+        (customer.get('phone')?.touched || submitted())
+      ) {
+        <small class="text-red-500">
+          Phone must contain exactly 10 digits.
+        </small>
+      }
+
+    </div>
+
+
+    <!-- Delivery Address -->
+    <div formGroupName="address" class="space-y-4">
+
+      <h3 class="text-xl font-semibold">
+        Delivery Address
+      </h3>
+
+
+      <!-- City -->
+      <input
+        type="text"
+        formControlName="city"
+        placeholder="City"
+        class="w-full border rounded px-3 py-2"
+      />
+
+      @if (
+        address.get('city')?.invalid &&
+        (address.get('city')?.touched || submitted())
+      ) {
+        <small class="text-red-500">
+          City is required and cannot be blank.
+        </small>
+      }
+
+
+      <!-- Address Line -->
+      <input
+        type="text"
+        formControlName="line1"
+        placeholder="Address Line"
+        class="w-full border rounded px-3 py-2"
+      />
+
+      @if (
+        address.get('line1')?.invalid &&
+        (address.get('line1')?.touched || submitted())
+      ) {
+        <small class="text-red-500">
+          Address is required and cannot be blank.
+        </small>
+      }
+
+
+      <!-- Postcode -->
+      <input
+        type="text"
+        formControlName="postcode"
+        placeholder="Postcode"
+        class="w-full border rounded px-3 py-2"
+      />
+
+      @if (
+        address.get('postcode')?.invalid &&
+        (address.get('postcode')?.touched || submitted())
+      ) {
+        <small class="text-red-500">
+          Postcode must contain exactly 5 digits.
+        </small>
+      }
+
+    </div>
+
+
+    <!-- Extra Delivery Contacts -->
+    <div formArrayName="extraContacts" class="space-y-4">
+
+      <h3 class="text-xl font-semibold">
+        Extra Delivery Contacts
+      </h3>
+
+      <button
+        type="button"
+        (click)="addContact()"
+        class="px-4 py-2 bg-gray-700 text-white rounded">
+        + Add contact
+      </button>
+
+
+      @for (contact of extraContacts.controls; track contact) {
+
+        <div
+          [formGroupName]="$index"
+          class="border rounded p-4 space-y-3">
+
+          <input
+            type="text"
+            formControlName="name"
+            placeholder="Contact Name"
+            class="w-full border rounded px-3 py-2"
+          />
+
+          <input
+            type="text"
+            formControlName="phone"
+            placeholder="Contact Phone"
+            class="w-full border rounded px-3 py-2"
+          />
+
+          <button
+            type="button"
+            (click)="removeContact($index)"
+            class="px-4 py-2 bg-red-500 text-white rounded">
+            Remove
+          </button>
+
+          @if (
+            contact.invalid &&
+            (contact.touched || submitted())
+          ) {
+            <small class="text-red-500">
+              Every extra contact needs a name and a 10-digit phone.
+            </small>
+          }
+
+        </div>
+
+      } @empty {
+
+        <p class="text-gray-500">
+          No extra contacts. Add one if someone else may receive the order.
+        </p>
+
+      }
+
+    </div>
+
+
+    <!-- Notes -->
+    <div>
+
+      <textarea
+        formControlName="notes"
+        placeholder="Notes"
+        class="w-full border rounded px-3 py-2">
+      </textarea>
+
+    </div>
+
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      class="w-full bg-indigo-500 text-white py-2 rounded">
+      Place order
+    </button>
+
+  </form>
+
+
+  <!-- Debug Panel -->
+  <div class="mt-6 p-4 bg-gray-100 rounded text-sm">
+
+    <p>
+      Form status: {{ checkoutForm.status }}
+    </p>
+
+    <p>
+      valid: {{ checkoutForm.valid }} ·
+      touched: {{ checkoutForm.touched }} ·
+      dirty: {{ checkoutForm.dirty }}
+    </p>
+
+    <p>
+      extra contacts: {{ extraContacts.length }}
+    </p>
+
+    <p>
+      customer: {{ customer.status }} ·
+      address: {{ address.status }}
+    </p>
+
+  </div>
+
+</section>

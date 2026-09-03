@@ -45,6 +45,8 @@ export const routes: Routes = [
         .then(m => m.Cart)
   },
 
+  
+
   {
     path: 'about',
     loadComponent: () =>
@@ -53,10 +55,29 @@ export const routes: Routes = [
   },
 
   {
+  path: 'checkout',
+  loadComponent: () =>
+    import('./pages/checkout/checkout')
+      .then(m => m.Checkout),
+  canActivate: [authGuard]
+  },
+
+  {
+  path: 'contact',
+  loadComponent: () =>
+    import('./pages/contact/contact')
+      .then((m) => m.Contact)
+   },
+
+  {
     path: '**',
     loadComponent: () =>
       import('./pages/not-found/not-found')
         .then(m => m.NotFound)
   }
+
+
+  
+  
 
 ];
